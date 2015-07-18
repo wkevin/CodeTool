@@ -1,0 +1,44 @@
+#!/bin/bash
+# usage:
+# ./count.sh ["filetype"]
+
+maxlen=20
+maxdepth=1
+visualfix=500
+
+if [ $# != 0 ]; then
+    for i in $*
+    do
+        if [[ "$i" == [0-9] ]]; then # $i is number
+            maxdepth=$i
+            if [ $# == 1 ]; then
+                nofliter="True"
+            fi
+        else
+            format=$format'%8s '
+            paras=$paras"$i "
+        fi
+    done
+fi
+
+#printf '$maxdepth=%s\n$format=%s\n$paras=%s\n' "$maxdepth" "$format" "$paras"
+
+printf "\n%8s $format\n" "All" $paras
+
+find . -maxdepth $maxdepth -type d -not -path "*.[(svn)(git)]*"  -print| sort |while read LINE
+do
+    #echo "find $LINE -type f -not -path *svn* | wc -l"
+    x=$(find $LINE -type f -not -path "*.[\(svn\)\(git\)]*" | wc -l)
+
+    if [ -z $nofliter ]; then
+        y=""
+        for p in $paras
+        do
+            #echo "find $LINE -type f -not -path *[(svn)(git)]* -name *.$p -print | wc -l"
+            y=$y" "$(find $LINE -type f -not -path "*.[\(svn\)\(git\)]*" -name "*.$p" -print | wc -l)
+        done
+    fi
+
+    d=${LINE%/*} # $y is dir
+    printf "%8s $format %s %s\n" $x $y ${d//?/-} ${LINE##*/}
+done
