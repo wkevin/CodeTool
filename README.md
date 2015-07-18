@@ -20,7 +20,7 @@ It can help you to understand the file layout in a new source code project.
 **example**
 
 ```
-$ howmany mk java aidl cpp h  html xml png 
+aosp-5.0$ howmany mk java aidl cpp h  xml html
 
      All       mk     java     aidl      cpp        h      xml     html 
   375318     4765    36308      716    24599   111074    25558     9947  - .
