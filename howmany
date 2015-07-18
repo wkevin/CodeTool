@@ -2,9 +2,7 @@
 # usage:
 # ./count.sh ["filetype"]
 
-maxlen=20
 maxdepth=1
-visualfix=500
 
 if [ $# != 0 ]; then
     for i in $*
@@ -12,7 +10,7 @@ if [ $# != 0 ]; then
         if [[ "$i" == [0-9] ]]; then # $i is number
             maxdepth=$i
             if [ $# == 1 ]; then
-                nofliter="True"
+                onlydepth="True"
             fi
         else
             format=$format'%8s '
@@ -30,7 +28,7 @@ do
     #echo "find $LINE -type f -not -path *svn* | wc -l"
     x=$(find $LINE -type f -not -path "*.[\(svn\)\(git\)]*" | wc -l)
 
-    if [ -z $nofliter ]; then
+    if [ -z $onlydepth ]; then
         y=""
         for p in $paras
         do
