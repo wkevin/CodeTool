@@ -22,6 +22,7 @@ It can help you to understand the file layout in a new source code project.
 ```
 $ howmany mk java aidl cpp h  html xml png 
 
+     All       mk     java     aidl      cpp        h      xml     html 
   375318     4765    36308      716    24599   111074    25558     9947  - .
       19        2        0        0        0        1        0        0  - abi
     1340       21      372        0        0      405        0        0  - art
