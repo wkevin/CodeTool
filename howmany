@@ -19,19 +19,19 @@ fi
 
 #printf '$maxdepth=%s\n$format=%s\n$paras=%s\n' "$maxdepth" "$format" "$paras"
 
-printf "\n%8s $format\n" "All" $paras
+printf "\n%s\n%8s $format\n" $PWD "All" $paras
 
-find . -maxdepth $maxdepth -type d -not -path "*.[(svn)(git)]*"  -print| sort |while read LINE
+
+find . -maxdepth $maxdepth -type d -not -path "*.svn*" -and -not -path "*.git*" -print| sort |while read LINE
 do
-    #echo "find $LINE -type f -not -path *svn* | wc -l"
-    x=$(find $LINE -type f -not -path "*.[\(svn\)\(git\)]*" | wc -l)
+    #echo $LINE
+    x=$(find $LINE -type f -not -path "*.svn*" -and -not -path "*.git*" | wc -l)
 
     if [ -z $onlydepth ]; then
         y=""
         for p in $paras
         do
-            #echo "find $LINE -type f -not -path *[(svn)(git)]* -name *.$p -print | wc -l"
-            y=$y" "$(find $LINE -type f -not -path "*.[\(svn\)\(git\)]*" -name "*.$p" -print | wc -l)
+            y=$y" "$(find $LINE -type f -not -path "*.svn*" -and -not -path "*.git*" -name "*$p" -print | wc -l)
         done
     fi
 
